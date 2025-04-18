@@ -30,8 +30,6 @@ def menu():
             password = input("Inserisci la tua password: ")
             email = input("Inserisci la tua email: ")
             utente = cu.Utente(nome, password, email)
-            db_conn = db.connessione("rubrica")
-            cursor = db_conn.cursor()
             db.registrazione(utente, db_conn) # registra l'utente nel DB
             db_conn.commit()
             print("Registrazione avvenuta con successo.")
@@ -44,7 +42,6 @@ def menu():
             telefono = input("Inserisci il telefono del contatto: ")
             email = input("Inserisci l'email del contatto: ")
             contatto = cc.Contatto(nome, cognome, telefono, email)
-            db_conn = db.connessione("rubrica")
             db.aggiungi_contatto(contatto, utente, db_conn)
             db_conn.commit()
             print("Contatto aggiunto con successo.")
@@ -52,7 +49,6 @@ def menu():
             if utente is None:
                 print("Devi effettuare il login per visualizzare i contatti.")
                 continue
-            db_conn = db.connessione("rubrica")
             contatti = db.visualizza_contatti(utente, db_conn)
             # stampa i contatti
             if contatti:
@@ -70,8 +66,6 @@ def menu():
             cognome = input("Inserisci il nuovo cognome del contatto: ")
             telefono = input("Inserisci il nuovo telefono del contatto: ")
             email = input("Inserisci la nuova email del contatto: ")
-            db_conn = db.connessione("rubrica")
-            cursor = db_conn.cursor()
             db.modifica_contatto(id, nome, cognome, telefono, email, db_conn)
             db_conn.commit()
             print("Contatto modificato con successo.")
@@ -80,8 +74,6 @@ def menu():
                 print("Devi effettuare il login per eliminare un contatto.")
                 continue
             id = input("Inserisci l'ID del contatto da eliminare: ")
-            db_conn = db.connessione("rubrica")
-            cursor = db_conn.cursor()
             db.elimina_contatto(id, utente, db_conn)
             db_conn.commit()
             print("Contatto eliminato con successo.")
